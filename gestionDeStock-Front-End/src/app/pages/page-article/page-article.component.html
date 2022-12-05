@@ -1,0 +1,122 @@
+<app-static></app-static>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0 classm ">
+          <div class="d-flex justify-content-between">
+            <h3 class="mb-0" style="color: #32325D; font-family: 'Trebuchet MS',fangsong; font-size: 25px; font-weight: bloder; line-height: 48px; margin: 0;">                <i class="ni ni-bag-17"></i>&nbsp;&nbsp;ARTICLES</h3>
+            <div *ngIf="screenWidth>= 1040; else elseBlock">
+              <button type="button" class="btn btn-warning"> <i class="fa-solid fa-cloud-arrow-up"></i> &nbsp; Importer</button>
+              <button type="button" class="btn btn-success"> <i class="fa-solid fa-cloud-arrow-down"></i> &nbsp;Exporter</button>
+              <button type="button" class="btn btn-primary" (click)="noveaux()" ><i class="fa-solid fa-plus"></i> &nbsp;Nouveau</button>
+            </div>
+          </div>
+          </div>
+          <ng-template #elseBlock>
+            <td class="text-right">
+              <div ngbDropdown placement="bottom-right">
+                <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                  <i class="fas fa-ellipsis-v"></i>
+                </a>
+                <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                  <a class="dropdown-item" href="javascript:void(0)" style="color:#5E72E4;" routerLink="/ajouterarticle"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Nouveau</a>
+                  <a class="dropdown-item" href="javascript:void(0)" style="color:#FB6340;" ><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;Importer</a>
+                  <a class="dropdown-item" href="javascript:void(0)" style="color:#2DCE89;"><i class="fa-solid fa-cloud-arrow-down"></i>&nbsp;Exporter</a>
+                </div>
+              </div>
+            </td>
+          </ng-template>
+          <hr>
+
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th  class="w-50">Article</th>
+              <th  class="w-25">Informations article</th>
+              <th  class="w-25" ><span style="color:#FFFFFF; "></span>Détail catégorie</th>
+              <th  colspan="2" ><span style="color:#FFFFFF; ">-----</span>Action 1</th>
+              <th  colspan="2" ><span style="color:#FFFFFF; ">-----</span>Action 2</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let articleshow of aboutus ">
+              <td class="w-50">
+                <div class="media align-items-center">
+                  <a href="javascript:void(0)"  class="img-thumbnail">
+                    <img [src]="articleshow?.articleImage?.url ? articleshow.articleImage.url:imagePath" style="width: 100px; height: 100px;" alt="Image placeholder" >
+                  </a>
+                </div>
+              </td>
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li><img src="https://img.icons8.com/fluency-systems-regular/20/null/barcode.png"/> &nbsp;{{ articleshow.codeArticle }}</li><br>
+                    <li><img src="https://img.icons8.com/fluency-systems-regular/20/null/news.png"/> &nbsp;{{ articleshow.designation }}</li><br>
+                    <li><img src="https://img.icons8.com/ios/20/null/price-tag-usd--v1.png"/> &nbsp;{{ articleshow.prixUnitaireHt }}</li><br>
+                    <li><img src="https://img.icons8.com/android/20/null/price-tag-usd.png"/> &nbsp;{{ articleshow.prixUnitaireTtc }}</li>
+                  </ul>
+                </div>
+              </td>
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li><img src="https://img.icons8.com/dotty/19/null/category.png"/> &nbsp;{{articleshow.categoryId.codeCtegory}}</li><br>
+                    <li><img src="https://img.icons8.com/external-anggara-basic-outline-anggara-putra/20/null/external-menu-user-interface-anggara-basic-outline-anggara-putra.png"/> &nbsp;{{articleshow.categoryId.designation}}</li><br>
+                    <li><img src="https://img.icons8.com/external-parzival-1997-flat-parzival-1997/20/null/external-save-logistics-and-supply-chain-management-parzival-1997-flat-parzival-1997.png"/>&nbsp;{{articleshow.quantite}}</li><br>
+                    <li>&nbsp;</li><br>
+                  </ul>
+                </div>
+              </td>
+              <td colspan="2">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li><a class="dropdown-item" href="javascript:void(0)" style="color:#5FBA7D;" (click)="upadate(articleshow.id)" > <i class=" ni ni-ui-04 " ></i> &nbsp;&nbsp;Modifier</a></li><br>
+                  </ul>
+                </div>
+              </td>
+              <td colspan="2">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li> <a class="dropdown-item" [routerLink]="[]" (click)="deleteDiague(articleshow.id)" style="color:#FF0000;"> <i class="ni ni-fat-remove"></i> &nbsp;Supprimer</a></li><br>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4" >
+          <nav aria-label="...">
+            <ul class="pagination justify-content-center mb-0">
+              <li class="page-item" [ngClass]="{'disabled' : pages == 0 }">
+                <a class="page-link" href="javascript:void(0)" tabindex="-1" (click)="Previous()"  >
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item active">
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">{{pages +1}} <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item" [ngClass]="{'disabled' : pages +1 == (pagesTabes | async)  }">
+                <a class="page-link" href="javascript:void(0)" (click)="Next()">
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <ng-container *ngIf="testVar">
+          <app-succs-alert ></app-succs-alert>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+</div>

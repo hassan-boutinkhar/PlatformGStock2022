@@ -1,0 +1,147 @@
+<app-static></app-static>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0 classm ">
+          <div class="d-flex justify-content-between">
+            <h3 class="mb-0" style="color: #32325D; font-family: 'Trebuchet MS',fangsong; font-size: 25px; font-weight: bloder; line-height: 48px; margin: 0;">                <i class="ni ni-delivery-fast"></i>&nbsp;&nbsp;Movement du stock</h3>
+            <div *ngIf="screenWidth>= 1040; else elseBlock">
+              <button type="button" class="btn btn-success"> <i class="fa-solid fa-cloud-arrow-down"></i> &nbsp;Exporter</button>
+            </div>
+          </div>
+        </div>
+        <ng-template #elseBlock>
+          <td class="text-right">
+            <div ngbDropdown placement="bottom-right">
+              <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                <i class="fas fa-ellipsis-v"></i>
+              </a>
+              <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                <a class="dropdown-item" href="javascript:void(0)" style="color:#2DCE89;"><i class="fa-solid fa-cloud-arrow-down"></i>&nbsp;Exporter</a>
+              </div>
+            </div>
+          </td>
+        </ng-template>
+        <hr>
+
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th  class="w-50">Article</th>
+              <th  class="w-25">Informations article</th>
+              <th  class="w-25" ><span style="color:#FFFFFF; "></span>Détail catégorie</th>
+              <th  colspan="2" ><span style="color:#FFFFFF; ">------------------</span>Actions </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let articleshow of aboutus ">
+              <td class="w-50">
+                <div class="media align-items-center">
+                  <a href="javascript:void(0)"  class="img-thumbnail">
+                    <img [src]="articleshow?.articleImage?.url ? articleshow.articleImage.url:imagePath" style="width: 100px; height: 100px;" alt="Image placeholder" >
+                  </a>
+                </div>
+              </td>
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li><img src="https://img.icons8.com/fluency-systems-regular/20/null/barcode.png"/> &nbsp;{{ articleshow.codeArticle }}</li><br>
+                    <li><img src="https://img.icons8.com/fluency-systems-regular/20/null/news.png"/> &nbsp;{{ articleshow.designation }}</li><br>
+                    <li><img src="https://img.icons8.com/ios/20/null/price-tag-usd--v1.png"/> &nbsp;{{ articleshow.prixUnitaireHt }}</li><br>
+                    <li><img src="https://img.icons8.com/android/20/null/price-tag-usd.png"/> &nbsp;{{ articleshow.prixUnitaireTtc }}</li>
+                  </ul>
+                </div>
+              </td>
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li><img src="https://img.icons8.com/dotty/19/null/category.png"/> &nbsp;{{articleshow.categoryId.codeCtegory}}</li><br>
+                    <li><img src="https://img.icons8.com/external-anggara-basic-outline-anggara-putra/20/null/external-menu-user-interface-anggara-basic-outline-anggara-putra.png"/> &nbsp;{{articleshow.categoryId.designation}}</li><br>
+                    <li><img src="https://img.icons8.com/external-parzival-1997-flat-parzival-1997/20/null/external-save-logistics-and-supply-chain-management-parzival-1997-flat-parzival-1997.png"/>&nbsp;{{articleshow.quantite}}</li><br>
+                    <li></li><br>
+                  </ul>
+                </div>
+              </td>
+              <td class="text-right" class="w-25">
+                <div >
+                  <ul class="list-unstyled">
+                    <li class="pl-3" data-toggle="modal" data-target="#exampleModal"><a class="dropdown-item" (click)="openModal(articleshow.id)"  href="javascript:void(0)" style="color:#5FBA7D;" > <i class="fa-solid fa-pen-to-square"></i> &nbsp;Correction de stock</a></li><br>
+                  </ul>
+                  <ul class="list-unstyled">
+                    <li class="pl-3"><a class="dropdown-item" (click)="openDialog(articleshow.id)" href="javascript:void(0)" style="color:#5B4283;" > <i class="fa-solid fa-list-check"></i> &nbsp;Consulter le stock&nbsp; </a></li><br>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4" >
+          <nav aria-label="...">
+            <ul class="pagination justify-content-center mb-0">
+              <li class="page-item" [ngClass]="{'disabled' : pages == 0 }">
+                <a class="page-link" href="javascript:void(0)" tabindex="-1" (click)="Previous()"  >
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item active">
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">{{pages +1}} <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item" [ngClass]="{'disabled' : pages +1 == (pagesTabes | async)  }">
+                <a class="page-link" href="javascript:void(0)" (click)="Next()">
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <ng-container *ngIf="testVar">
+          <app-succs-alert ></app-succs-alert>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- open a modal window by clicking button  basic bootstrap-->
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <h1 class="modal-title" class="d-flex"><img src="https://img.icons8.com/ios/30/null/grammarly.png"/>&nbsp;Correction de stock</h1>
+        <h1 (click)="onCloseHandled()" style="color:brown;" class="p-2"><i class="ni ni-fat-remove"></i></h1>
+      </div>
+      <div class="modal-body" style="margin-top: -30px; margin-bottom: -30px;">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Quantité</label>
+            <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Saisir la quantité" formControlName="quantite">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Type de Correction</label>
+            <select class="form-control" id="exampleFormControlSelect1" formControlName="typeMvt">
+              <option [ngValue]="value1">Correction positif</option>
+              <option [ngValue]="value2">Correction négatif</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="onCloseHandled()" ><i class="ni ni-fat-remove"></i>&nbsp;Annuler</button>
+            <button type="submit" class="btn btn-primary"  ><i class="fa-solid fa-floppy-disk"></i>&nbsp;Enregistrer</button>
+          </div>
+        </form>
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal !-->
+

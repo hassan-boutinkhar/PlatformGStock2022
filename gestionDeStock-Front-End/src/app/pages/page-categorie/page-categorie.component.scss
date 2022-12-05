@@ -1,0 +1,14 @@
+hr{
+  width: 100%;
+  margin-bottom: 0px;
+}
+.classm{
+  margin-bottom: 0px;
+}
+h3{
+  font-size: 30px;
+}
+.disabled {
+  pointer-events:none; //This makes it not clickable
+  opacity:0.6;         //This grays it out to look disabled
+}

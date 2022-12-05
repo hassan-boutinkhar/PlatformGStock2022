@@ -1,0 +1,133 @@
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+  <!-- Mask -->
+  <span class="mask bg-gradient-danger opacity-8"></span>
+  <!-- Header container -->
+  <div class="col-xl-12 order-xl-1">
+    <div class="card bg-secondary shadow">
+      <div class="card-header bg-white border-0">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h3 class="mb-0"><i class="fa-solid fa-user-plus"></i> &nbsp;Ajouter un {{title}}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+          <h6 class="heading-small text-muted mb-4">Information</h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Nom</label>
+                  <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Nom" value="lucky.jesse" formControlName="nom">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-email">E-mail</label>
+                  <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com" formControlName="mail">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-first-name">Prénom</label>
+                  <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Prénom" value="Prénom" formControlName="prenom">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-last-name">Téléphone</label>
+                  <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="06XXXXXXXX" value="06XXXXXXXX" formControlName="numTele">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" for="input-dateNaissance">Date De Naissance</label>
+              <input type="date" id="input-dateNaissance" class="form-control form-control-alternative" placeholder="Prénom" value="Prénom" formControlName="dateDeNaissance">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" for="input-last-name">Photo</label>
+              <input type="file" id="PHOTO" class="form-control form-control-alternative" formControlName="photo" (change)="onSelected($event)" accept="image/png, image/jpeg" >
+            </div>
+          </div>
+          <hr class="my-4" />
+          <!-- Address -->
+          <h6 class="heading-small text-muted mb-4">Information adress </h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-address">Address 1</label>
+                  <input id="input-address" class="form-control form-control-alternative" placeholder="Adress 1" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text" formControlName="adress2">
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label" for="input-address">Address 2</label>
+                  <input id="input-address1" class="form-control form-control-alternative" placeholder="Adress 2" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text" formControlName="adress1">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-city">Ville</label>
+                  <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="ville" value="GUELMIM" formControlName="ville">
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-country">Pays</label>
+                  <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="pays" value="MAROC" formControlName="pays">
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-country">Code postale</label>
+                  <input type="text" id="input-postal-code" class="form-control form-control-alternative" placeholder="code postale" formControlName="codePostale">
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4" />
+          <!-- Address -->
+          <h6 class="heading-small text-muted mb-4">Role </h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-role">Role</label>
+                  <select name="role" id="role" class="form-control form-control-alternative" id="input-role" formControlName="roles">
+                    <option value="admin" selected>Admin</option>
+                    <option value="employe" >Employe</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-password">Mot De pass</label>
+                  <input type="password" id="input-password" class="form-control form-control-alternative" placeholder="Saisir un mot de pass" formControlName="motDepass" >
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="card-footer py-4" >
+            <nav aria-label="...">
+              <ul class="pagination justify-content-end mb-0">
+                <div>
+                  <button type="button" class="btn btn-danger" (click)="close()"> <i class="fa-solid fa-xmark"></i> &nbsp; Annuler</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid" ><i class="fa-solid fa-floppy-disk"></i> &nbsp;Enregistrer</button>
+                </div>
+              </ul>
+            </nav>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="testVar">
+    <app-succs-alert ></app-succs-alert>
+  </ng-container>
+</div>
+

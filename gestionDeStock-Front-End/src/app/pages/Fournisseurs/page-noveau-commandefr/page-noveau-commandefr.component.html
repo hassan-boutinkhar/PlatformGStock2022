@@ -1,0 +1,138 @@
+<app-static></app-static>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row ">
+    <div class="col ">
+      <div class="card shadow ">
+        <div>
+          <h3 class="d-flex justify-content-lg-start" style="padding-left: 20px; padding-top: 20px;margin-bottom: 0px;"> <i class="fa-solid fa-circle-plus blue-color"></i>&nbsp;Ajouter nouveau commande</h3>
+        </div>
+        <hr>
+        <form [formGroup]="formCommande" (ngSubmit)="onSubmit(formCommande)">
+          <div class="d-flex justify-content-around" style="margin-top: 30px;margin-bottom: -35px;" >
+            <div class="d-flex align-items-between flex-column bd-highlight"  class="col-sm">
+              <div class="col" class="mb-2" >
+                <input type="text" class="form-control" placeholder="Code commande" name="codec" style="height: 40px;border-color: #323C72" formControlName="codeCommande">
+              </div>
+              <div class="col" class="mb-2" >
+                <input type="date" class="form-control" placeholder="Date commande" name="datec" style="height: 40px;border-color: #323C72" formControlName="dateCommande">
+              </div>
+              <div class="col" class="mb-2">
+                <select class="form-control" id="client" style="height: 40px;border-color: #323C72" formControlName="client">
+                  <option value ="" disabled default selected>Selectionner une fournisseur</option>
+                  <ng-container *ngFor=" let client of listClients " >
+                    <option
+                      [ngValue]="client"
+                      [(ngModel)]="curUser"
+                    >{{client.nom +" "+client.prenom}}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="media align-items-center"  style="margin-top: 50px;text-align: center;" class="col-sm">
+              <a href="javascript:void(0)" class="avatar rounded  w-auto" >
+                <img alt="Image placeholder" src="{{ infoclients.icon }}">
+              </a>
+            </div>
+            <div class="media-body" class="col-sm">
+              <ul class="list-unstyled">
+                <li><img src="https://img.icons8.com/sf-ultralight/27/null/employee-card.png"/> &nbsp;{{ (selectedClient?.nom || "----------------")+" "+ (selectedClient?.prenom || "----------------") }}</li><br>
+                <li><img src="https://img.icons8.com/fluency-systems-regular/25/null/call-squared.png"/> &nbsp;{{ selectedClient?.numTel || "--------------------------------" }}</li><br>
+                <li><img src="https://img.icons8.com/ios/19/null/gmail--v1.png"/> &nbsp;&nbsp;{{ selectedClient?.mail || "--------------------------------" }}</li><br>
+              </ul>
+            </div>
+          </div>
+          <hr>
+          <form [formGroup]="formLigneCommande" (ngSubmit)="addLigneSubmit(formLigneCommande)">
+            <div class="row mt-3" style="width: 90%;margin-left: 4px;margin-right: 1px; text-align: center" >
+              <div class="col" >
+                <div class="col" class="mb-2">
+                  <select class="form-control" id="HH" style="height: 40px;border-color: #323C72" formControlName="article" >
+                    <option value ="" disabled default selected>Selectionner une article</option>
+                    <ng-container *ngFor=" let article of listArticles ">
+                      <option
+                        [ngValue]="article"
+                      >{{article.designation}}</option>
+                    </ng-container>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Quantite" name="codepostale" style="height: 40px;border-color: #323C72" formControlName="quantite" [ngModel]="quantite">
+              </div>
+              <button type="submit" class="btn btn-success">+</button>
+            </div>
+          </form>
+          <hr>
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th  >Article</th>
+              <th  >Quantite</th>
+              <th  >Prix</th>
+              <th  ><span style="color:#FFFFFF; ">------</span>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let ligneCommande of lignesCommandesClients">
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li> <img src="https://img.icons8.com/material-outlined/25/null/cancel-4-digits.png"/>&nbsp;{{ ligneCommande.articleIdCC }}</li><br>
+                  </ul>
+                </div>
+              </td>
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li> <img src="https://img.icons8.com/material-outlined/25/null/money-bag-franc.png"/>&nbsp;{{ ligneCommande.quantite }}</li><br>
+                  </ul>
+                </div>
+              </td>
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li><img src="https://img.icons8.com/material-outlined/25/null/cheap-2.png"/> &nbsp;{{ligneCommande.prixTotale}}</li><br>
+                  </ul>
+                </div>
+              </td>
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li> <a class="dropdown-item" [routerLink]="[]" (click)="delete(ligneCommande)"  style="color:#FF0000;"> <i class="ni ni-fat-remove"></i> &nbsp;Supprimer</a></li><br>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+            <thead class="thead-light">
+            <tr>
+              <th  ><span style="color:#FFFFFF; ">Article</span></th>
+              <th  ><span style="color:#FFFFFF; ">Quantite</span></th>
+              <th  >Prix Totale</th>
+              <th  ><span style="color:#FFFFFF; " >------</span><span style="font-size:15px; ">{{priceTotale}}$</span></th>
+            </tr>
+            </thead>
+          </table>
+          <div class="card-footer py-4" >
+            <nav aria-label="...">
+              <ul class="pagination justify-content-end mb-0">
+                <div>
+                  <button type="button" class="btn btn-danger" (click)="close()" > <i class="fa-solid fa-xmark"></i> &nbsp; Annuler</button>
+                  <button type="submit" class="btn btn-success" [disabled]="formCommande.invalid" ><i class="fa-solid fa-floppy-disk"></i> &nbsp;Valider</button>
+                </div>
+              </ul>
+            </nav>
+          </div>
+
+        </form>
+        <hr>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="testVar">
+    <app-succs-alert ></app-succs-alert>
+  </ng-container>
+</div>
+

@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>
+  Supprimer {{title}}
+</h1>
+
+<div mat-dialog-content>
+  <p>Voulez-vous vraiment supprimer {{message}}</p>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onDismiss()">Non</button>
+  <button mat-raised-button color="warn" (click)="onConfirm()">Oui</button>
+</div>

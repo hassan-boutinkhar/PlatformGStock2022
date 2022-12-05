@@ -1,0 +1,141 @@
+<app-static></app-static>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0 classm ">
+          <div class="d-flex justify-content-between">
+            <h3 class="mb-0" style="color: #32325D; font-family: 'Trebuchet MS',fangsong; font-size: 25px; font-weight: bloder; line-height: 48px; margin: 0;">                <i class="ni ni-circle-08"></i>&nbsp;&nbsp;Commandes Fournisseurs</h3>
+            <div *ngIf="screenWidth>= 1040; else elseBlock">
+              <button type="button" class="btn btn-warning"> <i class="fa-solid fa-cloud-arrow-up"></i> &nbsp; Importer</button>
+              <button type="button" class="btn btn-success"> <i class="fa-solid fa-cloud-arrow-down"></i> &nbsp;Exporter</button>
+              <button type="button" class="btn btn-primary" (click)="noveaux()" ><i class="fa-solid fa-plus"></i> &nbsp;Nouveau</button>
+            </div>
+          </div>
+        </div>
+        <ng-template #elseBlock>
+          <td class="text-right">
+            <div ngbDropdown placement="bottom-right">
+              <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                <i class="fas fa-ellipsis-v"></i>
+              </a>
+              <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                <a class="dropdown-item" href="javascript:void(0)" style="color:#5E72E4;" routerLink="/noveaucommandefournisseur"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Nouveau</a>
+                <a class="dropdown-item" href="javascript:void(0)" style="color:#FB6340;" ><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;Importer</a>
+                <a class="dropdown-item" href="javascript:void(0)" style="color:#2DCE89;"><i class="fa-solid fa-cloud-arrow-down"></i>&nbsp;Exporter</a>
+              </div>
+            </div>
+          </td>
+        </ng-template>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th  class="w-25">N° Commande</th>
+              <th  class="w-25">Date</th>
+              <th  class="w-25" >Client</th>
+              <th  class="w-25" >Etat Du Commande</th>
+              <th  class="w-25" >Prix Totale</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let articleshow of aboutus ">
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li><img src="https://img.icons8.com/ios/20/null/numbers-input-form.png"/> &nbsp;{{ articleshow.code }}</li><br>
+                  </ul>
+                </div>
+              </td>
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li><img src="https://img.icons8.com/ios/20/null/calendar-13.png"/> &nbsp;{{ articleshow.dateCommande }}</li><br>
+                  </ul>
+                </div>
+              </td>
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li><img src="https://img.icons8.com/ios/20/null/search-client.png"/> &nbsp;{{articleshow.fournisseur}}</li><br>
+                  </ul>
+                </div>
+              </td>
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li><a class="dropdown-item" (click)="openModal(articleshow.id)" href="javascript:void(0)" ><img src="https://img.icons8.com/color/20/null/true-false.png"/> &nbsp;{{articleshow.etatCommande}}</a></li><br>
+                  </ul>
+                </div>
+              </td>
+              <td class="w-25">
+                <div class="media-body">
+                  <ul class="list-unstyled">
+                    <li><img src="https://img.icons8.com/material-rounded/20/null/estimate.png"/>&nbsp;{{articleshow.prixTotale}} $</li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4" >
+          <nav aria-label="...">
+            <ul class="pagination justify-content-center mb-0">
+              <li class="page-item" [ngClass]="{'disabled' : pages == 0 }">
+                <a class="page-link" href="javascript:void(0)" tabindex="-1" (click)="Previous()"  >
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item active">
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">{{pages +1}} <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item" [ngClass]="{'disabled' : pages +1 == (pagesTabes | async)  }">
+                <a class="page-link" href="javascript:void(0)" (click)="Next()">
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <ng-container *ngIf="testVar">
+          <app-succs-alert ></app-succs-alert>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <h1 class="modal-title" class="d-flex"><img src="https://img.icons8.com/ios/30/null/grammarly.png"/>&nbsp;Modifier l'Etat du commande</h1>
+        <h1 (click)="onCloseHandled()" style="color:brown;" class="p-2"><i class="ni ni-fat-remove"></i></h1>
+      </div>
+      <div class="modal-body" style="margin-top: -30px; margin-bottom: -30px;">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Etat du commande</label>
+            <select class="form-control" id="exampleFormControlSelect1" formControlName="etat">
+              <option value="en cours">En cours</option>
+              <option value="commande préte">Commande préte</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="onCloseHandled()" ><i class="ni ni-fat-remove"></i>&nbsp;Annuler</button>
+            <button type="submit" class="btn btn-primary"  ><i class="fa-solid fa-floppy-disk"></i>&nbsp;Enregistrer</button>
+          </div>
+        </form>
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal !-->
