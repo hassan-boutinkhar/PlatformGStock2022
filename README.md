@@ -1,0 +1,1 @@
+# PlatformGStock2022
